@@ -40,17 +40,19 @@ public class DeaManagementApplication implements CommandLineRunner {
 
 		// this will create 3 users in database
 		for (int i = 0; i < 100; i++) {
-			User user = new User();
-			user.setName("User " + i);
-			user.setEmail("user" + i + "@gmail.com");
-			user.setLinkedin("linkedin.com/user" + i);
-			user.setPassword("password" + i);
+			User user = User.builder()
+					.name("User " + i)
+					.email("user" + i + "@gmail.com")
+					.linkedin("linkedin.com/user" + i)
+					.password("password" + i)
+					.build();
 
-			Student student = new Student();
-			student.setUniversity("UNI" + i);
-			student.setGraduation("GRAD" + i);
-			student.setFinishDate(LocalDate.now());
-			student.setUser(user);
+			Student student = Student.builder()
+					.university("UNI" + i)
+					.graduation("GRAD" + i)
+					.finishDate(LocalDate.now())
+					.user(user)
+					.build();
 
 			this.studentRepository.save(student);
 		}

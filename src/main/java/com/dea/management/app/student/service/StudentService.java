@@ -6,6 +6,7 @@ import com.dea.management.app.student.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class StudentService {
     private StudentRepository studentRepository;
 
     public Page<Student> findAllStudents(Integer page, Integer pageSize) {
-        return this.studentRepository.findAllStudents(PageRequest.of(page, pageSize));
+        return this.studentRepository.findAllStudents(PageRequest.of(page, pageSize, Sort.by("user.name").ascending()));
     }
 
     public Student findStudentById(Long id) {

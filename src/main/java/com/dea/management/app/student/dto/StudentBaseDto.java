@@ -1,7 +1,13 @@
 package com.dea.management.app.student.dto;
 
+import lombok.*;
+
 import java.time.LocalDate;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class StudentBaseDto {
 
     private Long id;
@@ -9,9 +15,13 @@ public class StudentBaseDto {
     private String graduation;
     private LocalDate finishDate;
 
-    public Long getId() { return id; }
+    public Long getId() {
+        return id;
+    }
 
-    public void setId(Long id) { this.id = id; }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUniversity() {
         return university;

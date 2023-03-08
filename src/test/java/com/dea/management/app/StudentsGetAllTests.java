@@ -50,7 +50,7 @@ public class StudentsGetAllTests {
         this.studentRepository.deleteAll();
         this.createFakeStudents(100);
 
-        mockMvc.perform(get("/student?page=0&pageSize=4"))
+        mockMvc.perform(get("/students?page=0&pageSize=4"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.content").isArray())
@@ -80,7 +80,7 @@ public class StudentsGetAllTests {
 
     @Test
     void whenRequestingStudentListAndPageQueryParamIsInvalid_thenReturnBadRequestError() throws Exception {
-        mockMvc.perform(get("/student?page=xx&pageSize=4"))
+        mockMvc.perform(get("/students?page=xx&pageSize=4"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
@@ -90,7 +90,7 @@ public class StudentsGetAllTests {
 
     @Test
     void whenRequestingStudentListAndPageQueryParamIsMissing_thenReturnBadRequestError() throws Exception {
-        mockMvc.perform(get("/student?pageSize=4"))
+        mockMvc.perform(get("/students?pageSize=4"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
@@ -100,7 +100,7 @@ public class StudentsGetAllTests {
 
     @Test
     void whenRequestingStudentListAndPageSizeQueryParamIsInvalid_thenReturnBadRequestError() throws Exception {
-        mockMvc.perform(get("/student?pageSize=xx&page=4"))
+        mockMvc.perform(get("/students?pageSize=xx&page=4"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())
@@ -110,7 +110,7 @@ public class StudentsGetAllTests {
 
     @Test
     void whenRequestingStudentListAndPageSizeQueryParamIsMissing_thenReturnBadRequestError() throws Exception {
-        mockMvc.perform(get("/student?page=0"))
+        mockMvc.perform(get("/students?page=0"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.message").exists())

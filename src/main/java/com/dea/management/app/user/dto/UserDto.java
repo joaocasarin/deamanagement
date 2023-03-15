@@ -1,10 +1,16 @@
 package com.dea.management.app.user.dto;
 
 import com.dea.management.app.user.domain.User;
+import lombok.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UserDto {
 
     private String name;
@@ -25,29 +31,5 @@ public class UserDto {
         userDto.setLinkedin(user.getLinkedin());
 
         return userDto;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getLinkedin() {
-        return linkedin;
-    }
-
-    public void setLinkedin(String linkedin) {
-        this.linkedin = linkedin;
     }
 }

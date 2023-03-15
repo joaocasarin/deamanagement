@@ -1,10 +1,16 @@
 package com.dea.management.app.student.dto;
 
 import com.dea.management.app.student.domain.Student;
+import lombok.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class StudentDto extends StudentBaseDto{
 
     private String name;
@@ -29,29 +35,5 @@ public class StudentDto extends StudentBaseDto{
         studentDto.setFinishDate(student.getFinishDate());
 
         return studentDto;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getLinkedin() {
-        return linkedin;
-    }
-
-    public void setLinkedin(String linkedin) {
-        this.linkedin = linkedin;
     }
 }

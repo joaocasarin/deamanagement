@@ -15,4 +15,4 @@ CREATE TABLE student (
 	user_id INTEGER NOT NULL,
 	CONSTRAINT student_PK PRIMARY KEY (id),
 	CONSTRAINT student_FK FOREIGN KEY (user_id) REFERENCES deamanagement.`user`(id) ON DELETE CASCADE ON UPDATE CASCADE
-)
+);

@@ -46,7 +46,7 @@ public class DeaManagementApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// this will delete all users in database before all operations
-		this.userRepository.deleteAll();
+		// this.userRepository.deleteAll();
 
 		// this will create 3 users in database
 		for (int i = 0; i < 100; i++) {
@@ -64,7 +64,7 @@ public class DeaManagementApplication implements CommandLineRunner {
 					.user(user)
 					.build();
 
-			this.studentRepository.save(student);
+			// this.studentRepository.save(student);
 		}
 	}
 }

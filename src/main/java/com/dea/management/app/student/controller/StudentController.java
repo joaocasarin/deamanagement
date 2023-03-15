@@ -1,12 +1,15 @@
 package com.dea.management.app.student.controller;
 
 import com.dea.management.app.student.domain.Student;
+import com.dea.management.app.student.dto.CreateStudentRequestDto;
 import com.dea.management.app.student.dto.StudentDto;
+import com.dea.management.app.student.dto.UpdateStudentRequestDto;
 import com.dea.management.app.student.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -54,5 +57,52 @@ public class StudentController {
         log.info(String.format("Student loaded successfully : Student : %s", student));
 
         return StudentDto.fromStudent(student);
+    }
+
+    @Operation(summary = "Create a new Student")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Payload not valid"),
+            @ApiResponse(responseCode = "500", description = "Error creating student"),
+    })
+    @PostMapping("/students")
+    public void createStudent(@Valid @RequestBody CreateStudentRequestDto createStudentRequestDto) {
+        log.info(String.format("Creating Student : Payload : %s", createStudentRequestDto));
+
+        Student student = studentService.createStudent(createStudentRequestDto);
+
+        log.info(String.format("Student created successfully : id : %s", student.getId()));
+    }
+
+    @Operation(summary = "Update a Student")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Payload not valid"),
+            @ApiResponse(responseCode = "404", description = "Student not found"),
+            @ApiResponse(responseCode = "500", description = "Error updating student"),
+    })
+    @PutMapping("/students/{studentId}")
+    public void updateStudent(@PathVariable Long studentId, @Valid @RequestBody UpdateStudentRequestDto updateStudentRequestDto) {
+        log.info(String.format("Updating Student : Payload : %s", updateStudentRequestDto));
+
+        Student student = studentService.updateStudent(studentId, updateStudentRequestDto);
+
+        log.info(String.format("Student created successfully : id : %s", student.getId()));
+    }
+
+    @Operation(summary = "Delete a Student")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Successful operation"),
+            @ApiResponse(responseCode = "400", description = "Payload not valid"),
+            @ApiResponse(responseCode = "404", description = "Student not found"),
+            @ApiResponse(responseCode = "500", description = "Error deleting student"),
+    })
+    @DeleteMapping("/students/{studentId}")
+    public void deleteStudent(@PathVariable Long studentId) {
+        log.info(String.format("Removing Student : Id : %s", studentId));
+
+        studentService.deleteStudent(studentId);
+
+        log.info(String.format("Student removed successfully : id : %s", studentId));
     }
 }

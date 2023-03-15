@@ -1,8 +1,9 @@
-package com.dea.management.app;
+package com.dea.management.student.get;
 
 import com.dea.management.app.student.domain.Student;
 import com.dea.management.app.student.repository.StudentRepository;
 import com.dea.management.app.user.domain.User;
+import com.dea.management.student.StudentTestUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +35,9 @@ public class StudentsGetByIdTests {
     private MockMvc mockMvc;
 
     @Autowired
+    private StudentTestUtils studentTestUtils;
+
+    @Autowired
     private StudentRepository studentRepository;
 
     @BeforeEach
@@ -49,7 +53,7 @@ public class StudentsGetByIdTests {
     @Test
     void whenRequestingAnExistentStudentById_thenReturnTheStudentSuccessfully() throws Exception {
         this.studentRepository.deleteAll();
-        this.createFakeStudents(10);
+        this.studentTestUtils.createFakeStudents(10);
 
         Student student = this.studentRepository.findAll().get(0);
 
@@ -85,26 +89,4 @@ public class StudentsGetByIdTests {
                 .andExpect(jsonPath("$.details").isArray())
                 .andExpect(jsonPath("$.details", hasSize(1)));
     }
-
-    private void createFakeStudents(int amount) {
-        for (int i = 0; i < amount; i++) {
-            User u = new User();
-            u.setEmail("email " + i);
-            u.setName("name " + i);
-            u.setLinkedin("linkedin " + i);
-            u.setPassword("pwd " + i);
-
-            Student student = Student.builder()
-                    .university("UNI " + i)
-                    .graduation("Grad " + i)
-                    .finishDate(LocalDate.now())
-                    .user(u)
-                    .id(Long.parseLong(String.valueOf(i)))
-                    .build();
-
-            this.studentRepository.save(student);
-        }
-        List<Student> s = this.studentRepository.findAll();
-    }
-
 }

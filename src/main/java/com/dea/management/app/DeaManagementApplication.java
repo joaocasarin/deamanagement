@@ -5,6 +5,8 @@ import com.dea.management.app.student.repository.StudentRepository;
 import com.dea.management.app.user.domain.User;
 import com.dea.management.app.user.repository.UserRepository;
 import com.dea.management.app.user.service.UserService;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
+import io.swagger.v3.oas.annotations.servers.Server;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.time.LocalDate;
 
 @SpringBootApplication
+@OpenAPIDefinition(
+		servers = {
+				@Server(url = "http://localhost:8082${server.servlet.contextPath}", description = "Local environment URL"),
+				@Server(url = "https://deamanagement.com.br${server.servlet.contextPath}", description = "Development environment URL")
+		}
+)
 public class DeaManagementApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
